@@ -1,0 +1,25 @@
+{
+  "name": "yeliecious",
+  "version": "1.0.0",
+  "description": "This is an Express/React project for a food and catering order system",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BabacarMbodj/Yeliecious.git"
+  },
+  "author": "Babacar Sadikh Mbodj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BabacarMbodj/Yeliecious/issues"
+  },
+  "homepage": "https://github.com/BabacarMbodj/Yeliecious#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.3.1"
+  }
+}
