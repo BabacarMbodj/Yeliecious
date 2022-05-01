@@ -2,23 +2,22 @@
 require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
+const projectDependencies = require("./src/config/projectDependencies");
 const mongoose = require("mongoose");
 
 
 const app = express();
-
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+const port = process.env.PORT || 3000;
 
 
-app.get("/", function (req, res) {
-    res.send("The server is up and running");
-})
-
-mongoose.connect(process.env.MONGO_CRED);
-
-app.listen(3000, function (req, res) {
-
-    console.log("Server running at localhost 3000");
+projectDependencies.DatabaseService.initDatabase(function () {
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.listen(port, function (req, res) {
+        console.log("Server running at localhost " + port);
+    });
 });
+
+
+
+
+
