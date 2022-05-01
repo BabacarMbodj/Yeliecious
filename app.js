@@ -16,7 +16,7 @@ app.get("/", function (req, res) {
     res.send("The server is up and running");
 })
 
-mongoose.connect("mongodb://localhost:27017/yelieciousDB");
+mongoose.connect(process.env.MONGO_CRED);
 
 app.listen(3000, function (req, res) {
 
