@@ -19,5 +19,27 @@ module.exports =
             type: Boolean
         }
     }
+
+    ,
+
+    customerSchema:
+    {
+        name:
+        {
+            type: String,
+            require: [true, "Customer name is required"]
+        },
+
+        phone:
+        {
+            type: String,
+            require: [true, "Customer name is required"]
+        },
+
+        email:
+        {
+            type: String
+        }
+    }
 }
 
