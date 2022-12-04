@@ -1,8 +1,8 @@
 module.exports = (CustomerRepository) => {
 
-    async function Execute(phone) {
+    async function Execute() {
 
-        return CustomerRepository.getAllCustomers(phone);
+        return CustomerRepository.getAllCustomers();
 
     }
 
