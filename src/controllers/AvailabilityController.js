@@ -1,4 +1,3 @@
-//const AddAvailability = require("../application/use-cases/AvailabilityUseCases/AddAvailability");
 const { application } = require("express");
 const GetAvailability = require("../application/use-cases/AvailabilityUseCases/GetAvailability");
 const GetAvailabilityByDate = require("../application/use-cases/AvailabilityUseCases/GetAvailabilityByDate");
@@ -16,11 +15,13 @@ module.exports = (dependencies) => {
 
         if (availability == 'error')
             res.status(400).send('Bad Request');
+        else {
+            if (availability != '' && availability != null)
+                res.status(200).send(availability);
+            else
+                res.status(404).send("Availability does not exist yet");
+        }
 
-        else if (availability != '' && availability != null)
-            res.status(200).send(availability);
-        else
-            res.send("Availability does not exist yet");
     };
 
     const getAvailabilityByDate = async (req, res) => {
@@ -29,17 +30,18 @@ module.exports = (dependencies) => {
 
         if (availability == 'error')
             res.status(400).send('Bad Request');
-
-        else if (availability != '' && availability != null)
-            res.satus(200).send(availability);
-        else
-            res.send("Availability does not exist yet");
+        else {
+            if (availability != '' && availability != null)
+                res.satus(200).send(availability);
+            else
+                res.status(400).send("Availability does not exist yet");
+        }
     }
 
     const getAllAvailabilities = async (req, res) => {
+
         const GetAllAvailabilitiesQuery = GetAllAvailabilities(AvailabilityRepository);
         let availabilities = await GetAllAvailabilitiesQuery.Execute();
-
         if (availabilities != '' && availabilities != null)
             res.status(200).send(availabilities);
         else
@@ -64,7 +66,7 @@ module.exports = (dependencies) => {
             res.status(201).send(result);
         }
         else
-            res.send("Availability already exists");
+            res.status(403).send("Availability already exists");
     }
     const updateAvailability = async (req, res) => {
 
@@ -83,7 +85,7 @@ module.exports = (dependencies) => {
                 res.status(200).send('Availability has been updated!');
         }
         else
-            res.send("Availability does not exist");
+            res.status(404).send("Availability does not exist");
     }
 
     const deleteAvailability = async (req, res) => {
@@ -103,23 +105,8 @@ module.exports = (dependencies) => {
                 res.status(200).send('Availability deleted');
         }
         else
-            res.send("Availability does not exist");
+            res.status(404).send("Availability does not exist");
     };
-
-
-    const isAvailability = async (parameter, parameterType) => {
-        const GetAvailabilityQuery = GetAvailability(AvailabilityRepository);
-        const GetAvailabilityByDateQuery = GetAvailabilityByDate(AvailabilityRepository);
-        let availability = '';
-
-        if (parameterType = 'ID')
-            availability = await GetAvailabilityQuery.Execute(parameter);
-        else
-            availability = await GetAvailabilityByDateQuery.Execute(parameter);
-
-        console.log('erooooooor');
-        return availability;
-    }
 
 
     return {

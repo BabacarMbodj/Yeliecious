@@ -37,7 +37,7 @@ module.exports = class mongoAvailabilityRepository extends AvailabilityRepositor
     }
 
     async getAllAvailabilities() {
-        return await Availability.find({ availableDate: { $lte: new Date().toISOString() } });
+        return await Availability.find({ availableDate: { $gte: new Date().toISOString() } });
     }
 
     async addAvailability(newAvailability) {

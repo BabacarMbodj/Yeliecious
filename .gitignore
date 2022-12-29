@@ -52,6 +52,9 @@ typings/
 
 # Optional eslint cache
 .eslintcache
+#Templates
+views/
+public/
 
 # Microbundle cache
 .rpt2_cache/

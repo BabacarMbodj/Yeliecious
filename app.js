@@ -6,13 +6,13 @@ const routes = require('./src/frameworks/web/routes');
 const projectDependencies = require("./src/config/projectDependencies");
 const app = express();
 const port = process.env.PORT || 3000;
-
+app.set("view engine", "ejs");
 
 projectDependencies.DatabaseService.initDatabase(function () {
 
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
-
+    app.use(express.static("public"));
     // load routes
     app.use('/', routes(projectDependencies));
 
