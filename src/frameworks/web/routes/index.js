@@ -13,9 +13,9 @@ const apiRouter = (dependencies) => {
         res.send('Birds home page');
     });
 
-    routes.use('/availabilities', availabilitiesRouter);
-    routes.use('/customers', customersRouter);
-    routes.use('/products', productsRouter);
+    routes.use('/api/availabilities', availabilitiesRouter);
+    routes.use('/api/customers', customersRouter);
+    routes.use('/api/products', productsRouter);
 
     return routes;
 

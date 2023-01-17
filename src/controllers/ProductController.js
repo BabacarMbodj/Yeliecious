@@ -71,8 +71,9 @@ module.exports = (dependencies) => {
                 let result = await AddProductQuery.Execute(req.body.type, req.body.size, req.body.sizeDescriptor, req.body.flavours, req.body.shape);
 
                 if (result == 'error')
-                    res.status(500).send('An error happened, try again later');
-                else res.status(201).send(result);
+                    res.status(400).send('An error happened, try again later');
+                else
+                    res.status(201).send(result);
             }
             else
                 res.send("Product already exists");

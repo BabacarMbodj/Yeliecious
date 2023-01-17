@@ -27,13 +27,13 @@ module.exports =
         name:
         {
             type: String,
-            require: [true, "Customer name is required"]
+            required: [true, "Customer name is required"]
         },
 
         phone:
         {
             type: String,
-            require: [true, "Customer name is required"]
+            required: [true, "Customer name is required"]
         },
 
         email:
@@ -48,13 +48,13 @@ module.exports =
         type:
         {
             type: String,
-            require: [true, "Product type is required"]
+            required: [true, "Product type is required"]
         },
 
         size:
         {
             type: Number,
-            require: [true, "Product size is required"]
+            required: [true, "Product size is required"]
         },
 
         sizeDescriptor:

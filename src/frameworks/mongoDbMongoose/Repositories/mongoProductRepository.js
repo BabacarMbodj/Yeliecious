@@ -49,6 +49,7 @@ module.exports = class mongoProductRepository extends ProductRepository {
             return await productToCreate.save();
         }
         catch (err) {
+            console.log(err);
             return "error";
         }
     }
