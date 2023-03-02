@@ -52,7 +52,10 @@ typings/
 
 # Optional eslint cache
 .eslintcache
-
+#Templates
+views/
+public/
+tests/
 # Microbundle cache
 .rpt2_cache/
 .rts2_cache_cjs/

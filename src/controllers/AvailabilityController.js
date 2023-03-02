@@ -1,7 +1,7 @@
-//const AddAvailability = require("../application/use-cases/AvailabilityUseCases/AddAvailability");
 const { application } = require("express");
+const errorController = require("./errorController");
+const successController = require("./successController");
 const GetAvailability = require("../application/use-cases/AvailabilityUseCases/GetAvailability");
-const GetAvailabilityByDate = require("../application/use-cases/AvailabilityUseCases/GetAvailabilityByDate");
 const GetAllAvailabilities = require("../application/use-cases/AvailabilityUseCases/GetAllAvailabilities");
 const AddAvailability = require("../application/use-cases/AvailabilityUseCases/AddAvailability");
 const UpdateAvailability = require("../application/use-cases/AvailabilityUseCases/UpdateAvailability");
@@ -12,119 +12,72 @@ module.exports = (dependencies) => {
 
     const getAvailability = async (req, res) => {
         const GetAvailabilityQuery = GetAvailability(AvailabilityRepository);
-        let availability = await GetAvailabilityQuery.Execute(req.params.id);
+        let result = await GetAvailabilityQuery.Execute(req.params.id);
 
-        if (availability == 'error')
-            res.status(400).send('Bad Request');
+        if (result.type == 'error') {
+            errorController(result.body, res);
+        }
+        else {
+            successController("Availability", result.body, res);
+        }
 
-        else if (availability != '' && availability != null)
-            res.status(200).send(availability);
-        else
-            res.send("Availability does not exist yet");
     };
 
-    const getAvailabilityByDate = async (req, res) => {
-        const GetAvailabilityByDateQuery = GetAvailabilityByDate(AvailabilityRepository);
-        let availability = await GetAvailabilityByDateQuery.Execute(req.params.dateToFind);
-
-        if (availability == 'error')
-            res.status(400).send('Bad Request');
-
-        else if (availability != '' && availability != null)
-            res.satus(200).send(availability);
-        else
-            res.send("Availability does not exist yet");
-    }
-
     const getAllAvailabilities = async (req, res) => {
-        const GetAllAvailabilitiesQuery = GetAllAvailabilities(AvailabilityRepository);
-        let availabilities = await GetAllAvailabilitiesQuery.Execute();
 
-        if (availabilities != '' && availabilities != null)
-            res.status(200).send(availabilities);
+        const GetAllAvailabilitiesQuery = GetAllAvailabilities(AvailabilityRepository);
+        let result = await GetAllAvailabilitiesQuery.Execute();
+
+        if (result.type == 'error') {
+            errorController(result.body, res);
+        }
+        else if (result.body != '' && result.body != null) {
+            res.status(200).send(result.body);
+        }
         else
-            res.send("No upcoming availabilities yet");
+            res.send("No availabilities yet :-) ...");
 
     }
 
     const addAvailability = async (req, res) => {
 
-        const GetAvailabilityByDateQuery = GetAvailabilityByDate(AvailabilityRepository);
-        let availability = await GetAvailabilityByDateQuery.Execute(req.body.availableDate);
+        const AddAvailabilityQuery = AddAvailability(AvailabilityRepository);
+        let result = await AddAvailabilityQuery.Execute(req.body.availableDate, req.body.spots);
 
-        if (availability == 'error')
-            res.status(400).send('Bad Request');
-
-        else if (availability == '' || availability == null) {
-            const AddAvailabilityQuery = AddAvailability(AvailabilityRepository);
-            let result = await AddAvailabilityQuery.Execute(req.body.availableDate, req.body.spots);
-
-            if (result == 'error')
-                res.status(400).send('An error happened, try again later');
-            res.status(201).send(result);
+        if (result.type == 'error') {
+            errorController(result.body, res);
         }
         else
-            res.send("Availability already exists");
+            res.status(201).send("Availability successfully created");
     }
+
     const updateAvailability = async (req, res) => {
 
-        const GetAvailabilityQuery = GetAvailability(AvailabilityRepository);
-        let availability = await GetAvailabilityQuery.Execute(req.params.id);
+        const UpdateAvailabilityQuery = UpdateAvailability(AvailabilityRepository);
+        let result = await UpdateAvailabilityQuery.Execute(req.params.id, req.body.availableDate, req.body.spots);
 
-        if (availability == 'error') {
-            res.status(400).send('Bad Request');
-        }
-        else if (availability !== '' && availability !== null) {
-            const UpdateAvailabilityQuery = UpdateAvailability(AvailabilityRepository);
-            let result = await UpdateAvailabilityQuery.Execute(req.params.id, req.body.availableDate, req.body.spots);
-            if (result == 'error')
-                res.status(400).send('An error happened, try again later');
-            else
-                res.status(200).send('Availability has been updated!');
+        if (result.type == 'error') {
+            errorController(result.body, res);
         }
         else
-            res.send("Availability does not exist");
+            res.status(200).send("Availability successfully updated");
     }
 
     const deleteAvailability = async (req, res) => {
 
-        const GetAvailabilityQuery = GetAvailability(AvailabilityRepository);
-        let availability = await GetAvailabilityQuery.Execute(req.params.id);
+        const DeleteAvailabilityQuery = DeleteAvailability(AvailabilityRepository);
+        let result = await DeleteAvailabilityQuery.Execute(req.params.id);
 
-        if (availability == 'error') {
-            res.status(400).send('Bad Request');
-        }
-        else if (availability !== '' && availability !== null) {
-            const DeleteAvailabilityQuery = DeleteAvailability(AvailabilityRepository);
-            let result = await DeleteAvailabilityQuery.Execute(req.params.id);
-            if (result == 'error')
-                res.status(500).send('An error happened, try again later');
-            else
-                res.status(200).send('Availability deleted');
+        if (result.type == 'error') {
+            errorController(result.body, res);
         }
         else
-            res.send("Availability does not exist");
+            res.status(200).send("Availability successfully deleted");
     };
-
-
-    const isAvailability = async (parameter, parameterType) => {
-        const GetAvailabilityQuery = GetAvailability(AvailabilityRepository);
-        const GetAvailabilityByDateQuery = GetAvailabilityByDate(AvailabilityRepository);
-        let availability = '';
-
-        if (parameterType = 'ID')
-            availability = await GetAvailabilityQuery.Execute(parameter);
-        else
-            availability = await GetAvailabilityByDateQuery.Execute(parameter);
-
-        console.log('erooooooor');
-        return availability;
-    }
 
 
     return {
         getAvailability,
-        getAvailabilityByDate,
         getAllAvailabilities,
         addAvailability,
         updateAvailability,

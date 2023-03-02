@@ -1,3 +1,4 @@
+const validator = require('validator');
 module.exports =
 {
     availabilitySchema: {
@@ -5,7 +6,9 @@ module.exports =
         availableDate:
         {
             type: Date,
-            required: [true, "Activity date is required"]
+            required: [true, "Activity date is required"],
+            unique: [true, "The date has already been defined, update it instead"],
+            validate: [validator.isDate, 'Enter a valid date.']
         },
 
         spots:
@@ -22,21 +25,33 @@ module.exports =
 
     ,
 
-    customerSchema:
+    productSchema:
     {
-        name:
+        type:
         {
             type: String,
-            require: [true, "Customer name is required"]
+            required: [true, "Product type is required"],
+            unique: [true, "The product has already been defined, update it instead"]
         },
 
-        phone:
+        size:
         {
-            type: String,
-            require: [true, "Customer name is required"]
+            type: Number,
+            required: [true, "Product size is required"]
         },
 
-        email:
+        sizeDescriptor:
+        {
+            type: String
+        },
+
+        flavours:
+        {
+            type: [String],
+            validate: v => Array.isArray(v) && v.length > 0,
+        },
+
+        shape:
         {
             type: String
         }
