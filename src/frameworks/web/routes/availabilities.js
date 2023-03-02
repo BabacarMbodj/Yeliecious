@@ -18,8 +18,8 @@ const availabilitiesRouter = (dependencies) => {
         .put(controller.updateAvailability)
         .delete(controller.deleteAvailability);
 
-    router.route('/bydate/:dateToFind')
-        .get(controller.getAvailabilityByDate);
+    /*   router.route('/bydate/:dateToFind')
+           .get(controller.getAvailabilityByDate);*/
 
 
     return router;

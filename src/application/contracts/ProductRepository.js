@@ -17,7 +17,7 @@ module.exports = class ProductRepository {
         return Promise.reject(new Error('not implemented'));
     }
 
-    UpdateProduct(id) {
+    UpdateProduct(id, newProduct) {
         return Promise.reject(new Error('not implemented'));
     }
     DeleteProduct(id) {

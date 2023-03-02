@@ -15,11 +15,8 @@ const productsRouter = (dependencies) => {
 
     router.route('/:id')
         .get(controller.getProduct)
-      /*  .put(controller.updateProduct)
-        .delete(controller.deleteProduct)*/;
-
-    router.route('/byType/:productType')
-        .get(controller.getProductByType);
+        .put(controller.updateProduct)
+        .delete(controller.deleteProduct);
     return router;
 };
 

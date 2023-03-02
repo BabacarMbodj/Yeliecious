@@ -25,28 +25,6 @@ module.exports =
 
     ,
 
-    customerSchema:
-    {
-        name:
-        {
-            type: String,
-            required: [true, "Customer name is required"]
-        },
-
-        phone:
-        {
-            type: String,
-            required: [true, "A phone number is required to process with your order"]
-        },
-
-        email:
-        {
-            type: String,
-            validate: [validator.isEmail, 'Enter a valid email address.']
-        }
-    }
-    ,
-
     productSchema:
     {
         type:

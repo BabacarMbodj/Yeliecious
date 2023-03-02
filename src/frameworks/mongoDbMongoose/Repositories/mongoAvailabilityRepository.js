@@ -14,13 +14,25 @@ module.exports = class mongoAvailabilityRepository extends AvailabilityRepositor
 
     async getAvailability(id) {
         try {
-            return await Availability.findById(id);
+            let availability = await Availability.findById(id);
+            const result =
+            {
+                type: "success",
+                body: availability
+            }
+
+            return result;
         }
         catch (err) {
-            console.log(err);
-            return "error";
-        }
+            const result =
+            {
+                type: "error",
+                body: err
+            }
 
+            return result;
+
+        }
     }
 
     async getAvailabilityByDate(dateToFind) {
@@ -37,7 +49,26 @@ module.exports = class mongoAvailabilityRepository extends AvailabilityRepositor
     }
 
     async getAllAvailabilities() {
-        return await Availability.find({ availableDate: { $gte: new Date().toISOString() } });
+        try {
+            let availabilities = await Availability.find({ availableDate: { $gte: new Date().toISOString() } });
+            const result =
+            {
+                type: "success",
+                body: availabilities
+            }
+
+            return result;
+        }
+        catch (err) {
+            const result =
+            {
+                type: "error",
+                body: err
+            }
+
+            return result;
+
+        }
     }
 
     async addAvailability(newAvailability) {
@@ -53,11 +84,14 @@ module.exports = class mongoAvailabilityRepository extends AvailabilityRepositor
             return await availabilityToCreate.save();
         }
         catch (err) {
-            console.log(err);
-            return "error";
+            const error =
+            {
+                type: "error",
+                body: err
+            }
+
+            return error;
         }
-
-
     }
 
     async updateAvailability(id, newAvailability) {
@@ -68,8 +102,13 @@ module.exports = class mongoAvailabilityRepository extends AvailabilityRepositor
             });
         }
         catch (err) {
-            console.log(err);
-            return "error";
+            const error =
+            {
+                type: "error",
+                body: err
+            }
+
+            return error;
         }
     }
 
@@ -79,9 +118,13 @@ module.exports = class mongoAvailabilityRepository extends AvailabilityRepositor
             return await Availability.findByIdAndDelete(id);
         }
         catch (err) {
-            console.log(err);
-            return "error";
+            const error =
+            {
+                type: "error",
+                body: err
+            }
 
+            return error;
         }
     }
 
