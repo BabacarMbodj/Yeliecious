@@ -73,12 +73,26 @@ module.exports = class mongoAvailabilityRepository extends AvailabilityRepositor
 
     async addAvailability(newAvailability) {
 
+        let today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (newAvailability.availableDate < today) {
+            const error =
+            {
+                type: "pastDateError",
+                body: "Unable to create an availability for a past date"
+            }
+
+            return error;
+        }
+
         const availabilityToCreate = new Availability(
             {
                 availableDate: newAvailability.availableDate,
                 spots: newAvailability.spots,
                 isFull: newAvailability.isFull
             });
+
 
         try {
             return await availabilityToCreate.save();

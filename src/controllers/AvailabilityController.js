@@ -47,6 +47,8 @@ module.exports = (dependencies) => {
         if (result.type == 'error') {
             errorController(result.body, res);
         }
+        else if (result.type == 'pastDateError')
+            res.status(403).send(result.body);
         else
             res.status(201).send("Availability successfully created");
     }
