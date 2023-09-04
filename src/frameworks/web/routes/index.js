@@ -8,7 +8,7 @@ const apiRouter = (dependencies) => {
     const productsRouter = products(dependencies);
 
     routes.get('/', function (req, res) {
-        res.send('Birds home page');
+        res.send('Welcome to Yeliecious');
     });
 
     routes.use('/api/availabilities', availabilitiesRouter);
