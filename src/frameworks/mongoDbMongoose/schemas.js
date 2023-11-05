@@ -1,4 +1,5 @@
 const validator = require('validator');
+const mongoose = require("mongoose");
 module.exports =
 {
     availabilitySchema: {
@@ -14,7 +15,7 @@ module.exports =
         spots:
         {
             type: Number,
-            required: [true, "Activity date is required"]
+            required: [true, "number of spots"]
         },
 
         isFull:
@@ -54,6 +55,42 @@ module.exports =
         shape:
         {
             type: String
+        }
+    },
+
+    orderSchema:
+    {
+        products:
+        {
+            type: [mongoose.Schema.Types.ObjectId],
+            validate: v => Array.isArray(v) && v.length > 0
+        },
+
+        activityDate:
+        {
+            type: Date,
+            required: [true, "Activity date is required"],
+            validate: [validator.isDate, 'Enter a valid date.']
+        },
+        createdDate:
+        {
+            type: Date
+        },
+        dueDate:
+        {
+            type: Date,
+            required: [true, "Activity date is required"],
+            validate: [validator.isDate, 'Enter a valid date.']
+        },
+        orderStatus:
+        {
+            type: String,
+            required: [true, "Status is required"]
+        },
+
+        history:
+        {
+            type: [String]
         }
     }
 }
