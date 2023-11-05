@@ -1,6 +1,7 @@
 const express = require('express');
 const AvailabilityController = require('../../../controllers/AvailabilityController');
 
+
 // availabilities - api/YelieCious
 // load dependencies
 const availabilitiesRouter = (dependencies) => {
