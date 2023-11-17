@@ -62,7 +62,7 @@ module.exports = (dependencies) => {
             errorController(result.body, res);
         }
         else
-            res.status(200).send("Availability successfully updated");
+            res.status(204).send("Availability successfully updated");
     }
 
     const deleteAvailability = async (req, res) => {
@@ -74,7 +74,7 @@ module.exports = (dependencies) => {
             errorController(result.body, res);
         }
         else
-            res.status(200).send("Availability successfully deleted");
+            res.status(204).send("Availability successfully deleted");
     };
 
 
