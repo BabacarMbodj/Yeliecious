@@ -64,7 +64,7 @@ module.exports = (dependencies) => {
             errorController(result.body, res);
         }
         else
-            res.status(200).send("Product successfully updated");
+            res.status(204).send("Product successfully updated");
 
     }
 
@@ -76,7 +76,7 @@ module.exports = (dependencies) => {
             errorController(result.body, res);
         }
         else
-            res.status(200).send("Product successfully deleted");
+            res.status(204).send("Product successfully deleted");
 
     }
 
