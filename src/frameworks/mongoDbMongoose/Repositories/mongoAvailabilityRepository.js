@@ -111,9 +111,17 @@ module.exports = class mongoAvailabilityRepository extends AvailabilityRepositor
     async updateAvailability(id, newAvailability) {
 
         try {
-            return await Availability.findByIdAndUpdate(id, {
+            let availability = await Availability.findByIdAndUpdate(id, {
                 $set: { availableDate: newAvailability.availableDate, spots: newAvailability.spots }
-            });
+            }, { new: true });
+
+            const result =
+            {
+                type: "success",
+                body: availability
+            }
+
+            return result;
         }
         catch (err) {
             const error =
@@ -129,7 +137,15 @@ module.exports = class mongoAvailabilityRepository extends AvailabilityRepositor
     async deleteAvailability(id) {
 
         try {
-            return await Availability.findByIdAndDelete(id);
+            let availability = await Availability.findByIdAndDelete(id);
+
+            const result =
+            {
+                type: "success",
+                body: availability
+            }
+
+            return result;
         }
         catch (err) {
             const error =

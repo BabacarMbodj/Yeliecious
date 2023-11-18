@@ -85,7 +85,8 @@ module.exports =
         orderStatus:
         {
             type: String,
-            required: [true, "Status is required"]
+            required: [true, "Status is required"],
+            enum: ['received', 'pending', 'canceled', 'ready', 'delivered']
         },
 
         history:

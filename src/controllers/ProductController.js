@@ -52,7 +52,7 @@ module.exports = (dependencies) => {
             errorController(result.body, res);
         }
         else
-            res.status(201).send("Product successfully created");
+            res.status(201).send(result.body);
     }
 
     const updateProduct = async (req, res) => {
@@ -63,8 +63,9 @@ module.exports = (dependencies) => {
         if (result.type == 'error') {
             errorController(result.body, res);
         }
-        else
-            res.status(204).send("Product successfully updated");
+        else {
+            successController("Product", result.body, res);
+        }
 
     }
 
@@ -75,8 +76,11 @@ module.exports = (dependencies) => {
         if (result.type == 'error') {
             errorController(result.body, res);
         }
+        else if (result.body != '' && result.body != null) {
+            res.status(200).send("Product successfully deleted");
+        }
         else
-            res.status(204).send("Product successfully deleted");
+            res.status(204).send("Product does not exist");
 
     }
 

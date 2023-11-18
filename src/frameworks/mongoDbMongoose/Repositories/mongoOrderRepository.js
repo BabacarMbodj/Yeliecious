@@ -88,9 +88,17 @@ module.exports = class mongoOrderRepository extends OrderRepository {
 
     async updateOrder(orderId, newOrder) {
         try {
-            return await Order.findByIdAndUpdate(orderId, {
+            let order = await Order.findByIdAndUpdate(orderId, {
                 $set: { products: newOrder.products, activityDate: newOrder.activityDate, dueDate: newOrder.dueDate, orderStatus: newOrder.orderStatus, history: newOrder.history }
-            });
+            }, { new: true });
+
+            const result =
+            {
+                type: "success",
+                body: order
+            }
+
+            return result;
         }
         catch (err) {
             const error =
@@ -104,9 +112,17 @@ module.exports = class mongoOrderRepository extends OrderRepository {
 
     async updateOrderStatus(orderId, orderStatus, activityDate) {
         try {
-            return await Order.findByIdAndUpdate(orderId, {
+            let order = await Order.findByIdAndUpdate(orderId, {
                 $set: { orderStatus: orderStatus, activityDate: activityDate }
-            });
+            }, { new: true });
+
+            const result =
+            {
+                type: "success",
+                body: order
+            }
+
+            return result;
         }
         catch (err) {
             const error =
@@ -121,7 +137,14 @@ module.exports = class mongoOrderRepository extends OrderRepository {
     async deleteOrder(id) {
 
         try {
-            return await Order.findByIdAndDelete(id);
+            let order = await Order.findByIdAndDelete(id);
+            const result =
+            {
+                type: "success",
+                body: order
+            }
+
+            return result;
         }
         catch (err) {
             const error =

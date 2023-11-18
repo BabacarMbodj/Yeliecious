@@ -68,7 +68,15 @@ module.exports = class mongoProductRepository extends ProductRepository {
         });
 
         try {
-            return await productToCreate.save();
+            let product = await productToCreate.save();
+
+            const result =
+            {
+                type: "success",
+                body: product
+            }
+
+            return result;
         }
         catch (err) {
             const error =
@@ -84,31 +92,47 @@ module.exports = class mongoProductRepository extends ProductRepository {
 
     async updateProduct(productId, newProduct) {
         try {
-            return await Product.findByIdAndUpdate(productId, {
+            let product = await Product.findByIdAndUpdate(productId, {
                 $set: { type: newProduct.type, size: newProduct.size, sizeDescriptor: newProduct.sizeDescriptor, flavours: newProduct.flavours, shape: newProduct.shape }
-            });
+            }, { new: true });
+
+            const result =
+            {
+                type: "success",
+                body: product
+            }
+
+            return result;
+
         }
         catch (err) {
-            const error =
+            const result =
             {
                 type: "error",
                 body: err
             }
-            return error;
+            return result;
         }
     }
 
     async deleteProduct(productId) {
         try {
-            return await Product.findByIdAndDelete(productId);
+            let product = await Product.findByIdAndDelete(productId);
+            const result =
+            {
+                type: "success",
+                body: product
+            }
+
+            return result;
         }
         catch (err) {
-            const error =
+            const result =
             {
                 type: "error",
                 body: err
             }
-            return error;
+            return result;
         }
     }
 
