@@ -65,11 +65,11 @@ module.exports = (dependencies) => {
         let result = await UpdateOrderQuery.Execute(req.params.id, req.body.products, req.body.dueDate, req.body.orderStatus, req.body.history);
 
         if (result.type == 'error') {
-            // errorController(result.body, res);
-            res.status(400).send(result);
+            errorController(result.body, res);
         }
-        else
-            res.status(204).send("Order successfully updated");
+        else {
+            successController("Order", result.body, res);
+        }
 
     }
 
