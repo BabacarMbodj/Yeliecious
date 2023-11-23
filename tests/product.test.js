@@ -234,7 +234,7 @@ describe("PUT /api/products/PRODUCT_ID", () => {
 describe("DELETE /api/products/PRODUCT_ID", () => {
     it("should delete an existing product(dummy)", async () => {
         const res = await request(uri + port).delete("/api/products/6556968f7e9d7029520d0f5f").send();
-        expect(res.statusCode).toBe(200); // check if the operation was a success
+        expect(res.statusCode).toBe(204); // check if the operation was a success
 
     });
 });

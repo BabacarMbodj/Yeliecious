@@ -76,11 +76,8 @@ module.exports = (dependencies) => {
         if (result.type == 'error') {
             errorController(result.body, res);
         }
-        else if (result.body != '' && result.body != null) {
-            res.status(200).send("Product successfully deleted");
-        }
         else
-            res.status(204).send("Product does not exist");
+            res.status(204).send("Product successfully deleted");
 
     }
 
