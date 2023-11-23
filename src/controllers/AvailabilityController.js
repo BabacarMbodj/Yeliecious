@@ -50,7 +50,7 @@ module.exports = (dependencies) => {
         else if (result.type == 'pastDateError')
             res.status(403).send(result.body);
         else
-            res.status(201).send("Availability successfully created");
+            res.status(201).send(result.body);
     }
 
     const updateAvailability = async (req, res) => {
@@ -61,8 +61,9 @@ module.exports = (dependencies) => {
         if (result.type == 'error') {
             errorController(result.body, res);
         }
-        else
-            res.status(204).send("Availability successfully updated");
+        else {
+            successController("Availability", result.body, res);
+        }
     }
 
     const deleteAvailability = async (req, res) => {

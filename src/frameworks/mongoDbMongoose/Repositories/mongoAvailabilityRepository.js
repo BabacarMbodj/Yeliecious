@@ -95,7 +95,14 @@ module.exports = class mongoAvailabilityRepository extends AvailabilityRepositor
 
 
         try {
-            return await availabilityToCreate.save();
+            let availability = await availabilityToCreate.save();
+            const result =
+            {
+                type: "success",
+                body: availability
+            }
+
+            return result;
         }
         catch (err) {
             const error =

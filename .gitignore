@@ -55,7 +55,7 @@ typings/
 #Templates
 views/
 public/
-tests/
+#tests/
 # Microbundle cache
 .rpt2_cache/
 .rts2_cache_cjs/
